@@ -62,16 +62,13 @@ const DashboardLayout = () => {
     <Layout className="min-h-screen bg-transparent">
       <Header className="px-6 flex justify-between items-center bg-[#F2F3F5] border-b border-gray-200 z-10 sticky top-0 h-20 shadow-sm">
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 mr-4 mt-1">
-            <ApiOutlined className="text-[#E1251B] text-2xl" />
-            <div className="flex flex-col">
-              <span className="text-xl font-black text-[#E1251B] tracking-wide hidden sm:inline-block leading-none m-0 p-0">
-                AVIANCARADAR
-              </span>
-              <span className="text-[9px] uppercase font-bold text-gray-400 tracking-widest leading-none mt-1">
-                powered by LoBueno
-              </span>
+          <div className="flex flex-col mr-4 mt-1 justify-center">
+            <div className="flex items-center cursor-pointer">
+              <img src="/trendradar.jpg" alt="TrendRadar Logo" className="h-[40px] sm:h-[48px] object-contain rounded-md" />
             </div>
+            <span className="text-[8px] uppercase font-bold text-gray-400 tracking-widest leading-none mt-1 ml-1 text-left">
+              powered by LoBueno
+            </span>
           </div>
           <Title level={4} style={{ margin: 0, color: '#111827' }} className="flex items-center gap-2 border-l border-gray-200 pl-6 hidden md:flex">
             Centro de Inteligencia Global
