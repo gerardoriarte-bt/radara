@@ -4,7 +4,8 @@ import {
   BellOutlined,
   ApiOutlined,
   AppstoreOutlined,
-  FilterOutlined
+  FilterOutlined,
+  SyncOutlined
 } from '@ant-design/icons';
 import { useTrendsData } from '../../hooks/useTrendsData';
 import TrendCard from '../Cards/TrendCard';
@@ -78,14 +79,9 @@ const DashboardLayout = () => {
         </div>
         
         <div className="flex items-center gap-6">
-          <div className="hidden sm:flex flex-col items-end">
-            <div className="flex items-center gap-2 text-xs text-green-700 bg-green-50 px-3 py-1.5 rounded-full border border-green-200">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              Sistemas Online Activos
-            </div>
-            <span className="text-[10px] text-gray-400 font-medium pr-1 mt-1 tracking-wide">
-              Último escaneo: {formattedTime}
-            </span>
+          <div className="hidden sm:flex items-center gap-2 text-xs text-green-700 bg-green-50 px-3 py-1.5 rounded-full border border-green-200">
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            Sistemas Online Activos
           </div>
           <Badge count={3} size="small" offset={[-4, 4]}>
             <Button 
@@ -125,6 +121,10 @@ const DashboardLayout = () => {
                 { value: 'Red', label: '🔴 Ignorar' },
               ]}
             />
+          </div>
+          <div className="flex items-center gap-2 text-sm text-blue-700 bg-blue-50 px-4 py-2 rounded-lg border border-blue-200 font-medium tracking-wide">
+            <SyncOutlined className="text-blue-500" />
+            Actualizado: {formattedTime}
           </div>
         </div>
 
