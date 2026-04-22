@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-aviancared: #E1251B;
+  --color-aviancaglow: rgba(225, 37, 27, 0.4);
+}
+
+@layer base {
+  body {
+    @apply m-0 p-0 bg-gray-50 text-gray-900 font-sans;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.hologram-glow {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.hologram-glow:hover {
+  box-shadow: 0 10px 25px rgba(225, 37, 27, 0.15);
+  transform: translateY(-2px);
+  border-color: rgba(225, 37, 27, 0.3);
+}
+
+.custom-dark-message .ant-message-notice-content {
+  background: #FFFFFF !important;
+  color: #111827 !important;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
