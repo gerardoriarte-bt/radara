@@ -60,7 +60,7 @@ const DashboardLayout = () => {
 
   return (
     <Layout className="min-h-screen bg-transparent">
-      <Header className="px-6 flex justify-between items-center bg-[#F2F3F5] border-b border-gray-200 z-10 sticky top-0 h-20 shadow-sm">
+      <Header className="px-6 pt-3 pb-[15px] flex justify-between items-center bg-white border-b border-gray-200 z-10 sticky top-0 h-auto min-h-[80px] shadow-sm">
         <div className="flex items-center gap-6">
           <div className="flex flex-col mr-4 mt-1 justify-center">
             <div className="flex items-center cursor-pointer">
