@@ -118,6 +118,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
   const [competitorsPosts, setCompetitorsPosts] = useState<CompetitorData[]>(initialCompetitorsData);
   const [competitorProfiles, setCompetitorProfiles] = useState<CompetitorProfile[]>(initialProfiles);
   const [loading, setLoading] = useState<boolean>(true);
+  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
 
   // 1. Carga inicial de datos de Supabase y Suscripción
   useEffect(() => {
@@ -141,6 +142,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
           }
           const mappedData = data.map(mapTiktokEventToTrend);
           setAllTrends(mappedData);
+          setLastUpdated(new Date());
         }
       } catch (e: any) {
         console.error(e);
@@ -160,6 +162,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
           (payload) => {
             const newTrend = mapTiktokEventToTrend(payload.new);
             setAllTrends((prev) => [newTrend, ...prev]);
+            setLastUpdated(new Date());
             message.success({
               content: `¡Nueva tendencia detectada en TikTok: ${newTrend.title}!`,
               duration: 4,
@@ -207,6 +210,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
     activeCategories,
     addCompetitorProfile,
     removeCompetitorProfile,
-    loading 
+    loading,
+    lastUpdated
   };
 };

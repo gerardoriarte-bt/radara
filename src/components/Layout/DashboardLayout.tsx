@@ -28,8 +28,11 @@ const DashboardLayout = () => {
     activeCategories,
     addCompetitorProfile, 
     removeCompetitorProfile,
-    loading 
+    loading,
+    lastUpdated
   } = useTrendsData(selectedCategory);
+
+  const formattedTime = lastUpdated.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' });
 
   const filteredTrends = trends.filter(t => 
     impactFilter === 'All' ? true : t.relevance === impactFilter
@@ -75,9 +78,14 @@ const DashboardLayout = () => {
         </div>
         
         <div className="flex items-center gap-6">
-          <div className="hidden sm:flex items-center gap-2 text-xs text-green-700 bg-green-50 px-3 py-1.5 rounded-full border border-green-200">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-            Sistemas Online Activos
+          <div className="hidden sm:flex flex-col items-end">
+            <div className="flex items-center gap-2 text-xs text-green-700 bg-green-50 px-3 py-1.5 rounded-full border border-green-200">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              Sistemas Online Activos
+            </div>
+            <span className="text-[10px] text-gray-400 font-medium pr-1 mt-1 tracking-wide">
+              Último escaneo: {formattedTime}
+            </span>
           </div>
           <Badge count={3} size="small" offset={[-4, 4]}>
             <Button 
