@@ -35,8 +35,11 @@ const DashboardLayout = () => {
     impactFilter === 'All' ? true : t.relevance === impactFilter
   );
 
-  // Filtra recomendaciones idénticas
+  // Filtra recomendaciones idénticas y sin información útil
   const uniqueTrends = filteredTrends.filter((trend, index, self) => {
+    // Si la máquina no logró generar inteligencia (análisis o ejecución), ocultamos la tarjeta para no ensuciar la grilla.
+    if (!trend.analysis && !trend.rawAction) return false;
+
     if (!trend.rawAction) return true;
     const currentAction = trend.rawAction.trim().toLowerCase();
     const firstIndex = self.findIndex(t => t.rawAction && t.rawAction.trim().toLowerCase() === currentAction);
