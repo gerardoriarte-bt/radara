@@ -25,14 +25,14 @@ const ProfileVolumeList = ({ competitorsPosts, profiles }: Props) => {
 
     competitorsPosts.forEach(post => {
       // Find matching profile to get the handle
-      const profile = profiles.find(p => p.name.toLowerCase() === post.airline.toLowerCase());
-      const key = profile ? profile.id : post.airline;
+      const profile = profiles.find(p => p.name.toLowerCase() === post.brand.toLowerCase());
+      const key = profile ? profile.id : post.brand;
 
       if (!volumeMap.has(key)) {
         volumeMap.set(key, {
           id: key,
-          name: post.airline,
-          handle: profile ? profile.handle : '@' + post.airline.replace(/\s/g, '').toLowerCase(),
+          name: post.brand,
+          handle: profile ? profile.handle : '@' + post.brand.replace(/\s/g, '').toLowerCase(),
           platform: profile ? profile.platform : post.platform,
           totalViews: 0
         });
@@ -46,7 +46,7 @@ const ProfileVolumeList = ({ competitorsPosts, profiles }: Props) => {
 
   const columns: ColumnsType<AggregatedCompetitor> = [
     {
-      title: 'Aerolínea',
+      title: 'Marca',
       dataIndex: 'name',
       key: 'name',
       render: (_, record) => (

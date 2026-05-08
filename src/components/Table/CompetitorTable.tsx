@@ -31,12 +31,11 @@ const CompetitorTable = ({ postsData, profiles, loading, onAddProfile, onRemoveP
 
   const columns: ColumnsType<CompetitorData> = [
     {
-      title: 'Aerolínea / Marca',
-      dataIndex: 'airline',
-      key: 'airline',
-      render: (airline) => {
-        const color = airline.toUpperCase() === 'LATAM' ? 'blue' : airline.toUpperCase() === 'WINGO' ? 'purple' : 'cyan';
-        return <Tag color={color} className="font-bold border-0 bg-opacity-20 uppercase tracking-wider">{airline}</Tag>;
+      title: 'Marca',
+      dataIndex: 'brand',
+      key: 'brand',
+      render: (brand) => {
+        return <Tag color="orange" className="font-bold border-0 bg-opacity-10 uppercase tracking-widest text-[10px]">{brand}</Tag>;
       }
     },
     {
@@ -55,14 +54,14 @@ const CompetitorTable = ({ postsData, profiles, loading, onAddProfile, onRemoveP
       dataIndex: 'views',
       key: 'views',
       sorter: (a, b) => a.views - b.views,
-      render: (views) => <Text className="text-green-600 font-mono font-medium">{views.toLocaleString()}</Text>,
+      render: (views) => <Text className="text-slate-900 font-mono font-bold">{views.toLocaleString()}</Text>,
     },
     {
       title: 'Compartidos',
       dataIndex: 'shares',
       key: 'shares',
       sorter: (a, b) => a.shares - b.shares,
-      render: (shares) => <Text className="text-blue-600 font-mono font-medium">{shares.toLocaleString()}</Text>,
+      render: (shares) => <Text className="text-gray-400 font-mono font-medium">{shares.toLocaleString()}</Text>,
     },
     {
       title: 'Fecha',
@@ -77,7 +76,7 @@ const CompetitorTable = ({ postsData, profiles, loading, onAddProfile, onRemoveP
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
         <div>
           <Title level={4} style={{ color: '#111827', margin: 0 }}>Radar de Competencia</Title>
-          <Text type="secondary" className="text-sm">Monitoreo en tiempo real de aerolíneas vigiladas</Text>
+          <Text type="secondary" className="text-sm">Monitoreo en tiempo real de marcas vigiladas</Text>
         </div>
         <Button 
           type="primary" 
@@ -121,8 +120,8 @@ const CompetitorTable = ({ postsData, profiles, loading, onAddProfile, onRemoveP
         okButtonProps={{ className: 'bg-[#E1251B] hover:bg-red-700 border-none' }}
       >
         <Form form={form} layout="vertical" onFinish={handleAdd} className="mt-4">
-          <Form.Item name="name" label="Nombre de la marca / Aerolínea" rules={[{ required: true, message: 'Requerido' }]}>
-            <Input placeholder="Ej. Copa Airlines" className="bg-white border-gray-300" />
+          <Form.Item name="name" label="Nombre de la marca" rules={[{ required: true, message: 'Requerido' }]}>
+            <Input placeholder="Ej. Claro, Movistar" className="bg-white border-gray-300" />
           </Form.Item>
           <Form.Item name="platform" label="Red Social" rules={[{ required: true, message: 'Requerido' }]}>
             <Select placeholder="Selecciona una red">

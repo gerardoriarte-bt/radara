@@ -22,7 +22,7 @@ export interface CompetitorData {
   key: string;
   platform: string;
   post: string;
-  airline: string;
+  brand: string;
   views: number;
   shares: number;
   date: string;
@@ -35,22 +35,61 @@ export interface CompetitorProfile {
   handle: string;
 }
 
-// Initial realistic data for Competitors
-const initialCompetitorsData: CompetitorData[] = [
-  { key: '1', platform: 'Instagram', airline: 'LATAM Airlines', post: 'Nuevas rutas a Europa 2026', views: 845000, shares: 12400, date: new Date().toISOString().split('T')[0] },
-  { key: '2', platform: 'TikTok', airline: 'Wingo', post: 'Trend de azafatas bailando en cabina', views: 1200000, shares: 45000, date: new Date().toISOString().split('T')[0] },
-  { key: '3', platform: 'Instagram', airline: 'Copa Airlines', post: 'Conectando América: Stopover en Panamá', views: 650000, shares: 8900, date: new Date().toISOString().split('T')[0] },
-  { key: '4', platform: 'TikTok', airline: 'Iberia', post: 'Madrid desde las nubes - POV Piloto', views: 950000, shares: 32000, date: new Date().toISOString().split('T')[0] },
-];
+export const industriesConfig: Record<string, {
+  name: string;
+  profiles: CompetitorProfile[];
+  posts: CompetitorData[];
+  urlMocks: string[];
+}> = {
+  telco: {
+    name: 'Telecomunicaciones (Colombia)',
+    profiles: [
+      { id: '1', name: 'Claro', platform: 'TikTok/IG', handle: '@clarocolombia' },
+      { id: '2', name: 'Movistar', platform: 'Instagram', handle: '@movistarcolombia' },
+      { id: '3', name: 'Tigo', platform: 'TikTok/IG', handle: '@tigocolombia' },
+      { id: '4', name: 'WOM', platform: 'TikTok/IG', handle: '@womcolombia' },
+    ],
+    posts: [
+      { key: '1', platform: 'Instagram', brand: 'Claro', post: 'Nueva red 5G en todo el país', views: 845000, shares: 12400, date: new Date().toISOString().split('T')[0] },
+      { key: '2', platform: 'TikTok', brand: 'WOM', post: 'Trend de portabilidad', views: 1200000, shares: 45000, date: new Date().toISOString().split('T')[0] },
+      { key: '3', platform: 'Instagram', brand: 'Movistar', post: 'Fibra óptica simétrica para gamers', views: 650000, shares: 8900, date: new Date().toISOString().split('T')[0] },
+      { key: '4', platform: 'TikTok', brand: 'Tigo', post: 'Beneficios pospago - POV', views: 950000, shares: 32000, date: new Date().toISOString().split('T')[0] },
+    ],
+    urlMocks: ['@clarocolombia', '@movistarcolombia', '@tigocolombia', '@womcolombia', '@etb']
+  },
+  airlines: {
+    name: 'Aerolíneas (Global)',
+    profiles: [
+      { id: '1', name: 'LATAM Airlines', platform: 'TikTok/IG', handle: '@latamairlines' },
+      { id: '2', name: 'Copa Airlines', platform: 'Instagram', handle: '@copaairlines' },
+      { id: '3', name: 'Iberia', platform: 'TikTok/IG', handle: '@iberia' },
+      { id: '4', name: 'Wingo', platform: 'TikTok/IG', handle: '@vuelawingo' },
+    ],
+    posts: [
+      { key: '1', platform: 'Instagram', brand: 'LATAM Airlines', post: 'Nuevas rutas a Europa 2026', views: 845000, shares: 12400, date: new Date().toISOString().split('T')[0] },
+      { key: '2', platform: 'TikTok', brand: 'Wingo', post: 'Trend de azafatas bailando en cabina', views: 1200000, shares: 45000, date: new Date().toISOString().split('T')[0] },
+      { key: '3', platform: 'Instagram', brand: 'Copa Airlines', post: 'Conectando América: Stopover en Panamá', views: 650000, shares: 8900, date: new Date().toISOString().split('T')[0] },
+      { key: '4', platform: 'TikTok', brand: 'Iberia', post: 'Madrid desde las nubes - POV Piloto', views: 950000, shares: 32000, date: new Date().toISOString().split('T')[0] },
+    ],
+    urlMocks: ['@latamairlines', '@copaairlines', '@vuelawingo', '@iberia', '@viajesconavianca', '@viajerosporelmundo']
+  },
+  banking: {
+    name: 'Banca y Finanzas',
+    profiles: [
+      { id: '1', name: 'Bancolombia', platform: 'TikTok/IG', handle: '@bancolombia' },
+      { id: '2', name: 'Davivienda', platform: 'Instagram', handle: '@davivienda' },
+      { id: '3', name: 'Nubank', platform: 'TikTok/IG', handle: '@nubank' },
+    ],
+    posts: [
+      { key: '1', platform: 'Instagram', brand: 'Bancolombia', post: 'Pagos con QR fácil y rápido', views: 720000, shares: 9000, date: new Date().toISOString().split('T')[0] },
+      { key: '2', platform: 'TikTok', brand: 'Davivienda', post: 'Lugar equivocado trend', views: 1500000, shares: 60000, date: new Date().toISOString().split('T')[0] },
+      { key: '3', platform: 'TikTok', brand: 'Nubank', post: 'Educación financiera sin costo', views: 850000, shares: 21000, date: new Date().toISOString().split('T')[0] },
+    ],
+    urlMocks: ['@bancolombia', '@davivienda', '@nubank', '@bancodebogota']
+  }
+};
 
-const initialProfiles: CompetitorProfile[] = [
-  { id: '1', name: 'LATAM Airlines', platform: 'TikTok/IG', handle: '@latamairlines' },
-  { id: '2', name: 'Copa Airlines', platform: 'Instagram', handle: '@copaairlines' },
-  { id: '3', name: 'Iberia', platform: 'TikTok/IG', handle: '@iberia' },
-  { id: '4', name: 'Wingo', platform: 'TikTok/IG', handle: '@vuelawingo' },
-];
-
-const mapTiktokEventToTrend = (payload: any): Trend => {
+const mapTiktokEventToTrend = (payload: any, industryId: string): Trend => {
   const p = payload.puntaje ?? payload.Puntaje ?? 0;
   let relevance: 'Green' | 'Yellow' | 'Red' = 'Red';
   let speed: 'High' | 'Medium' | 'Low' = 'Low';
@@ -86,9 +125,9 @@ const mapTiktokEventToTrend = (payload: any): Trend => {
   const sanitizeUrl = (url: string) => {
     if (!url) return url;
     if (url.toLowerCase().includes('example.com')) {
-      const realisticAirlines = ['@latamairlines', '@copaairlines', '@vuelawingo', '@iberia', '@viajesconavianca', '@viajerosporelmundo'];
+      const urlMocks = industriesConfig[industryId]?.urlMocks || ['@brand'];
       // Deterministic choice based on length to keep it consistent on re-renders
-      return realisticAirlines[url.length % realisticAirlines.length];
+      return urlMocks[url.length % urlMocks.length];
     }
     return url;
   };
@@ -113,12 +152,18 @@ const mapTiktokEventToTrend = (payload: any): Trend => {
   };
 };
 
-export const useTrendsData = (categoryFilter?: string | null) => {
+export const useTrendsData = (categoryFilter?: string | null, industryId: string = 'telco') => {
   const [allTrends, setAllTrends] = useState<Trend[]>([]);
-  const [competitorsPosts, setCompetitorsPosts] = useState<CompetitorData[]>(initialCompetitorsData);
-  const [competitorProfiles, setCompetitorProfiles] = useState<CompetitorProfile[]>(initialProfiles);
+  const [competitorsPosts, setCompetitorsPosts] = useState<CompetitorData[]>(industriesConfig[industryId].posts);
+  const [competitorProfiles, setCompetitorProfiles] = useState<CompetitorProfile[]>(industriesConfig[industryId].profiles);
   const [loading, setLoading] = useState<boolean>(true);
   const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+
+  // Update lists when industry changes
+  useEffect(() => {
+    setCompetitorsPosts(industriesConfig[industryId].posts);
+    setCompetitorProfiles(industriesConfig[industryId].profiles);
+  }, [industryId]);
 
   // 1. Carga inicial de datos de Supabase y Suscripción
   useEffect(() => {
@@ -136,11 +181,10 @@ export const useTrendsData = (categoryFilter?: string | null) => {
           console.error("Error fetching Supabase data:", error);
           message.error(`Error de Supabase: ${error.message}`);
         } else if (data) {
-          console.log("Supabase data fetched:", data);
           if (data.length === 0) {
             message.warning("Supabase conectó, pero la tabla TiktokScrap está vacía.");
           }
-          const mappedData = data.map(mapTiktokEventToTrend);
+          const mappedData = data.map((d) => mapTiktokEventToTrend(d, industryId));
           setAllTrends(mappedData);
           setLastUpdated(new Date());
         }
@@ -160,7 +204,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
       .on('postgres_changes', 
           { event: 'INSERT', schema: 'public', table: 'TiktokScrap' }, 
           (payload) => {
-            const newTrend = mapTiktokEventToTrend(payload.new);
+            const newTrend = mapTiktokEventToTrend(payload.new, industryId);
             setAllTrends((prev) => [newTrend, ...prev]);
             setLastUpdated(new Date());
             message.success({
@@ -174,7 +218,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
     return () => {
       if (channel) supabase.removeChannel(channel);
     };
-  }, []);
+  }, [industryId]); // Re-fetch or re-map when industry changes
 
   // Filter trends by category
   const filteredTrends = allTrends.filter(t => 
@@ -188,7 +232,7 @@ export const useTrendsData = (categoryFilter?: string | null) => {
     const newMockPost: CompetitorData = {
       key: Date.now().toString(),
       platform: profile.platform,
-      airline: profile.name,
+      brand: profile.name,
       post: `Monitoreando recientes actividades de ${profile.handle}...`,
       views: Math.floor(Math.random() * 10000),
       shares: Math.floor(Math.random() * 500),
@@ -214,3 +258,4 @@ export const useTrendsData = (categoryFilter?: string | null) => {
     lastUpdated
   };
 };
+

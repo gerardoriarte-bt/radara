@@ -69,7 +69,7 @@ const TrendCard = ({ trend }: Props) => {
           </div>
           {trend.rawScore !== undefined && (
              <Tooltip title="Puntaje del Scraping">
-               <div className="flex items-center justify-center px-2 py-0.5 rounded bg-blue-50 border border-blue-200 text-[11px] text-blue-600 font-mono font-bold">
+               <div className="flex items-center justify-center px-2 py-0.5 rounded bg-orange-50 border border-orange-200 text-[11px] text-orange-600 font-mono font-bold">
                  PTS: {trend.rawScore}
                </div>
              </Tooltip>
@@ -92,10 +92,10 @@ const TrendCard = ({ trend }: Props) => {
               href={finalUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-blue-600 text-gray-900 transition-colors flex items-start gap-2 group-hover:text-blue-500"
+              className="hover:text-orange-600 text-gray-900 transition-colors flex items-start gap-2 group-hover:text-orange-500"
             >
               {trend.title}
-              <LinkOutlined className="text-[10px] text-blue-400 mt-1.5" />
+              <LinkOutlined className="text-[10px] text-orange-400 mt-1.5" />
             </a>
           ) : (
             trend.title
