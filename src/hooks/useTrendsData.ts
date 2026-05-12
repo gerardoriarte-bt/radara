@@ -189,7 +189,7 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
           if (data.length === 0) {
             message.warning("Supabase conectó, pero la tabla TiktokScrap está vacía.");
           }
-          const mappedData = data.map((d) => mapTiktokEventToTrend(d, industryId));
+          const mappedData = data.map((d: any) => mapTiktokEventToTrend(d, industryId));
           setAllTrends(mappedData);
           setLastUpdated(new Date());
         }
@@ -210,7 +210,7 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
       .channel('schema-db-changes')
       .on('postgres_changes', 
           { event: 'INSERT', schema: 'public', table: 'TiktokScrap' }, 
-          (payload) => {
+          (payload: any) => {
             const newTrend = mapTiktokEventToTrend(payload.new, industryId);
             setAllTrends((prev) => [newTrend, ...prev]);
             setLastUpdated(new Date());
