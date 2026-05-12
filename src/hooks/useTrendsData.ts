@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { message } from 'antd';
+import { MOCK_TELCO_TRENDS } from './mockTelcoTrends';
 
 export interface Trend {
   id: string;
@@ -169,8 +170,11 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
   useEffect(() => {
     let channel: any;
 
+    const demoMocks = industryId === 'telco' ? MOCK_TELCO_TRENDS : [];
+
     const fetchInitialData = async () => {
       if (!supabase) {
+        setAllTrends(demoMocks);
         setLoading(false);
         console.warn("Supabase no está configurado.");
         return;
@@ -181,21 +185,23 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
           .from('TiktokScrap')
           .select('*')
           .order('created_at', { ascending: false });
-        
+
         if (error) {
           console.error("Error fetching Supabase data:", error);
           message.error(`Error de Supabase: ${error.message}`);
+          setAllTrends(demoMocks);
         } else if (data) {
-          if (data.length === 0) {
+          if (data.length === 0 && demoMocks.length === 0) {
             message.warning("Supabase conectó, pero la tabla TiktokScrap está vacía.");
           }
           const mappedData = data.map((d: any) => mapTiktokEventToTrend(d, industryId));
-          setAllTrends(mappedData);
+          setAllTrends([...mappedData, ...demoMocks]);
           setLastUpdated(new Date());
         }
       } catch (e: any) {
         console.error(e);
         message.error(`Excepción: ${e.message}`);
+        setAllTrends(demoMocks);
       } finally {
         setLoading(false);
       }
