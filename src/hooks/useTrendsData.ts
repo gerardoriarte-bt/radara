@@ -260,19 +260,23 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
     }
   };
 
-  // Filter trends by category and exclude Airlines as requested
-  const filteredTrends = allTrends.filter(t => {
-    const isDashboard = !categoryFilter || categoryFilter === 'Dashboard';
-    const categoryMatches = isDashboard ? true : t.category === categoryFilter;
-    
-    // Exclude Airlines (Aerolíneas)
-    const isAirline = t.category.toLowerCase().includes('aerolínea') || 
-                      t.category.toLowerCase().includes('airline') ||
-                      t.title.toLowerCase().includes('aerolínea') ||
-                      t.title.toLowerCase().includes('airline');
-    
-    return categoryMatches && !isAirline;
-  });
+  // Filter trends by category and exclude Airlines / Travel as requested
+  const AIRLINE_TRAVEL_REGEX = /aerol[ií]nea|airline|avianca|latam|copa\s*airline|\biberia\b|wingo|satena|jetsmart|viaj|vuel|flight|aeropuerto|airport|aviaci[óo]n|aviation|turism|azafata|aeromoza|piloto\s+de\s+avi[óo]n|cabin\s+crew|ryanair|lufthansa|emirates|qatar|aerom[eé]xico|easyjet|\bklm\b|air\s+france|united\s+airlines|american\s+airlines|delta\s+airlines|boleto|pasaje|equipaje|maleta/i;
+
+  const filteredTrends = allTrends
+    .filter(t => {
+      const isDashboard = !categoryFilter || categoryFilter === 'Dashboard';
+      const categoryMatches = isDashboard ? true : t.category === categoryFilter;
+
+      // Mocks de telco siempre pasan (no correr regex sobre data conocida)
+      if (t.id.startsWith('mock-telco-')) return categoryMatches;
+
+      const haystack = `${t.title} ${t.category} ${t.analysis ?? ''} ${t.bioLink ?? ''} ${t.profileUrl ?? ''}`;
+      const isAirlineOrTravel = AIRLINE_TRAVEL_REGEX.test(haystack);
+
+      return categoryMatches && !isAirlineOrTravel;
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
 
   const addCompetitorProfile = (profile: Omit<CompetitorProfile, 'id'>) => {
     const newProfile = { ...profile, id: Date.now().toString() };
