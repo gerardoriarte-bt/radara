@@ -33,6 +33,7 @@ const DashboardLayout = () => {
     competitorProfiles, 
     addCompetitorProfile, 
     removeCompetitorProfile,
+    deleteTrend,
     loading,
     lastUpdated
   } = useTrendsData(selectedCategory, activeIndustry);
@@ -177,7 +178,7 @@ const DashboardLayout = () => {
                 ) : (
                   uniqueTrends.map(trend => (
                     <Col xs={24} sm={12} key={trend.id}>
-                      <TrendCard trend={trend} />
+                      <TrendCard trend={trend} onDelete={deleteTrend} />
                     </Col>
                   ))
                 )}

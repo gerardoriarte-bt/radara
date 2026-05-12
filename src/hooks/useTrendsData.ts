@@ -170,6 +170,11 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
     let channel: any;
 
     const fetchInitialData = async () => {
+      if (!supabase) {
+        setLoading(false);
+        console.warn("Supabase no está configurado.");
+        return;
+      }
       setLoading(true);
       try {
         const { data, error } = await supabase
@@ -198,6 +203,8 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
 
     fetchInitialData();
 
+    if (!supabase) return;
+
     // 2. Suscripción en tiempo real
     channel = supabase
       .channel('schema-db-changes')
@@ -220,10 +227,46 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
     };
   }, [industryId]); // Re-fetch or re-map when industry changes
 
-  // Filter trends by category
-  const filteredTrends = allTrends.filter(t => 
-    (!categoryFilter || categoryFilter === 'Dashboard') ? true : t.category === categoryFilter
-  );
+  const deleteTrend = async (id: string) => {
+    if (!supabase) {
+      // Si no hay supabase (local/demo), eliminamos solo del estado
+      setAllTrends(prev => prev.filter(t => t.id !== id));
+      message.success('Tendencia eliminada (Local/Demo)');
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from('TiktokScrap')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        console.error("Error deleting trend:", error);
+        message.error(`Error al eliminar: ${error.message}`);
+      } else {
+        setAllTrends(prev => prev.filter(t => t.id !== id));
+        message.success('Tendencia eliminada correctamente');
+      }
+    } catch (e: any) {
+      console.error(e);
+      message.error(`Excepción al eliminar: ${e.message}`);
+    }
+  };
+
+  // Filter trends by category and exclude Airlines as requested
+  const filteredTrends = allTrends.filter(t => {
+    const isDashboard = !categoryFilter || categoryFilter === 'Dashboard';
+    const categoryMatches = isDashboard ? true : t.category === categoryFilter;
+    
+    // Exclude Airlines (Aerolíneas)
+    const isAirline = t.category.toLowerCase().includes('aerolínea') || 
+                      t.category.toLowerCase().includes('airline') ||
+                      t.title.toLowerCase().includes('aerolínea') ||
+                      t.title.toLowerCase().includes('airline');
+    
+    return categoryMatches && !isAirline;
+  });
 
   const addCompetitorProfile = (profile: Omit<CompetitorProfile, 'id'>) => {
     const newProfile = { ...profile, id: Date.now().toString() };
@@ -254,6 +297,7 @@ export const useTrendsData = (categoryFilter?: string | null, industryId: string
     activeCategories,
     addCompetitorProfile,
     removeCompetitorProfile,
+    deleteTrend,
     loading,
     lastUpdated
   };

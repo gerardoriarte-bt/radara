@@ -10,7 +10,8 @@ import {
   GlobalOutlined, 
   TikTokOutlined,
   BulbOutlined,
-  ThunderboltOutlined
+  ThunderboltOutlined,
+  DeleteOutlined
 } from '@ant-design/icons';
 import RelevanceBadge from '../DecisionEngine/RelevanceBadge';
 import type { Trend } from '../../hooks/useTrendsData';
@@ -19,9 +20,10 @@ const { Title, Text, Paragraph } = Typography;
 
 interface Props {
   trend: Trend;
+  onDelete?: (id: string) => void;
 }
 
-const TrendCard = ({ trend }: Props) => {
+const TrendCard = ({ trend, onDelete }: Props) => {
   const renderSpeedIcon = () => {
     switch (trend.growthSpeed) {
       case 'High': return <RiseOutlined className="text-green-500 text-xl" />;
@@ -80,9 +82,23 @@ const TrendCard = ({ trend }: Props) => {
              </Tooltip>
           )}
         </Space>
-        <Text type="secondary" className="text-[10px] font-mono bg-gray-100 text-gray-500 px-2 py-1 rounded border border-gray-200">
-          {trend.date}
-        </Text>
+        <Space>
+          <Text type="secondary" className="text-[10px] font-mono bg-gray-100 text-gray-500 px-2 py-1 rounded border border-gray-200">
+            {trend.date}
+          </Text>
+          {onDelete && (
+            <Tooltip title="Eliminar del Radar">
+              <Button 
+                type="text" 
+                size="small" 
+                danger 
+                icon={<DeleteOutlined className="text-xs" />} 
+                onClick={() => onDelete(trend.id)}
+                className="flex items-center justify-center hover:bg-red-50 border border-transparent hover:border-red-100 rounded"
+              />
+            </Tooltip>
+          )}
+        </Space>
       </div>
 
       <div className="z-10 mt-1">
